@@ -9,7 +9,7 @@
 
     let result;
     let computerScore = 0;
-    let playerScore = 0;
+    let playerScore = 0; 
     let playerSelection;
 
     function computerPlay(){
@@ -24,113 +24,109 @@
 
 
     function playRound(playerSelection, computerSelection) {
-      playerSelection = prompt(`Score is: CPU: ${computerScore} | Your score: ${playerScore} Please choose one: Rock, Paper, Scissors`)
-      playerSelection = playerSelection.toLowerCase()
+      if (playerScore === 5) {
+      score.textContent = 'You won the game!';
+      bestOfFive.textContent = `Your score : 0 | CPU score: 0`;
+      playerScore = 0;
+      computerScore = 0;
+      return
+     }
+      if (computerScore === 5) {
+      score.textContent = 'Sorry. CPU won the game. Try again.'
+      bestOfFive.textContent = `Your score : 0 | CPU score: 0`;
+      playerScore = 0;
+      computerScore = 0;
+      return
+     }
+
+
       if (playerSelection == 'rock' && computerSelection == 'rock') {
-      return console.log('Draw! Try again.')
+      return score.textContent = 'Draw! Try again.'
       }
       else if (playerSelection == 'rock' && computerSelection == 'scissors') {
-      console.log('You win! Rock always wins scissor')
-      return playerScore += 1
+      score.textContent = 'You win! Rock always wins scissor'
+      playerScore += 1
+      return bestOfFive.textContent = `Your score : ${playerScore} | CPU score: ${computerScore}`;
       }
       else if (playerSelection == 'rock' && computerSelection == 'paper') {
-      console.log('Computer wins this time. Sorry but paper covers rock.')
-      return computerScore += 1
+      score.textContent ='Computer wins this time. Sorry but paper covers rock.'
+      computerScore += 1
+      return bestOfFive.textContent = `Your score : ${playerScore} | CPU score: ${computerScore}`;
       }
       else if (playerSelection == 'scissors' && computerSelection == 'rock') {
-      console.log('Computer wins this time. Sorry but rock breaks scissor!')  
-      return computerScore += 1
+      score.textContent = 'Computer wins this time. Sorry but rock breaks scissor!'  
+      computerScore += 1
+      return bestOfFive.textContent = `Your score : ${playerScore} | CPU score: ${computerScore}`;
       }
       else if (playerSelection == 'scissors' && computerSelection == 'paper') {
-      console.log('You win! Scissors cuts paper!')  
-      return  playerScore += 1
+      score.textContent = 'You win! Scissors cuts paper!'
+      playerScore += 1
+      return bestOfFive.textContent = `Your score : ${playerScore} | CPU score: ${computerScore}`;
       }
       else if (playerSelection == 'scissors' && computerSelection == 'scissors') {
-      return console.log('Draw! Try again.')
+      score.textContent = 'Draw! Try again.'
+      return bestOfFive.textContent = `Your score : ${playerScore} | CPU score: ${computerScore}`;
       }
       else if (playerSelection == 'paper' && computerSelection == 'rock') {
-      console.log('You win! Paper covers rock.')
-      return  playerScore += 1 
+      score.textContent = 'You win! Paper covers rock.'
+      playerScore += 1
+      return bestOfFive.textContent = `Your score : ${playerScore} | CPU score: ${computerScore}`; 
       }
       else if (playerSelection == 'paper' && computerSelection == 'scissors') {
-      console.log('Computer wins this time.Sorry but scissors cuts paper.')  
-      return computerScore += 1
+      score.textContent = 'Computer wins this time.Sorry but scissors cuts paper.'  
+      computerScore += 1
+      return bestOfFive.textContent = `Your score : ${playerScore} | CPU score: ${computerScore}`;
       }
       else if (playerSelection == 'paper' && computerSelection == 'paper') {
-      return console.log('Draw! Try again.')
+      return score.textContent = 'Draw! Try again.'
       }
       else 
       return
+
+      
     }
 
 
-    function game() {
-       playerScore = 0
-       computerScore = 0
-       playRound(playerSelection, computerPlay())
-       if (playerScore === 3 || computerScore === 3) {
-         let retry = confirm(`Nice game! Total score is: ${playerScore} for you and ${computerScore} for the CPU! Wanna play again?`)
-         if (retry == true)
-         game()
-         else
-         return
-       }
-       else
-       playRound(playerSelection, computerPlay())
+
+    const container = document.createElement('div');
+    container.setAttribute('id', 'container');
+    document.body.appendChild(container);
+    
+    const score = document.createElement('div');
+    score.classList.add('score');
+    score.textContent = 'Hello there! Choose to start playing!'
+    container.appendChild(score);
+
+    const bestOfFive = document.createElement('div');
+    bestOfFive.classList.add = ('bestOfFive');
+    bestOfFive.textContent = `Your score : ${playerScore} | CPU score: ${computerScore}`;
+    container.appendChild(bestOfFive);
+
+    const text = ['Rock', 'Paper', 'Scissors']
+
+    text.forEach((element) => {
+      let button = document.createElement('BUTTON');
+      button.classList.add('button')
+      button.textContent = element;
+      container.appendChild(button);
+    })
 
 
-        
-       if (playerScore === 3 || computerScore === 3) {
-         let retry = confirm(`Nice game! Total score is: ${playerScore} for you and ${computerScore} for the CPU! Wanna play again?`)
-         if (retry == true)
-         game()
-         else
-         return
-       }
-       else
-       playRound(playerSelection, computerPlay())
+    const rock = document.querySelector('.button')
+    rock.addEventListener('click', () => {
+      playRound('rock', computerPlay())
+    })
 
-       if (playerScore === 3 || computerScore === 3) {
-         let retry = confirm(`Nice game! Total score is: ${playerScore} for you and ${computerScore} for the CPU! Wanna play again?`)
-         if (retry == true)
-         game()
-         else
-         return
-       }
-       else
-       playRound(playerSelection, computerPlay())
+    const paper = document.querySelector('.button:nth-child(4)')
+    paper.addEventListener('click', () => {
+      playRound('paper', computerPlay())
+    })
 
-
-       if (playerScore === 3 || computerScore === 3) {
-         let retry = confirm(`Nice game! Total score is: ${playerScore} for you and ${computerScore} for the CPU! Wanna play again?`)
-         if (retry == true)
-         game()
-         else
-         return
-       }
-       else
-       playRound(playerSelection, computerPlay())
-
-       if (playerScore > computerScore) 
-       return alert('You won!')
-       else if (playerScore < computerScore) 
-       return alert('Sorry CPU won')
-       else (playerScore === computerScore) 
-         let retry = confirm(`Ohh! The result was draw? Wanna set things straight?`)
-         if (retry == true)
-         game()
-         else
-         return
-       
-    }
-
-
-   
-
-
-
-
-
+    const scissors = document.querySelector('.button:last-child')
+    scissors.addEventListener('click', () => {
+      playRound('scissors', computerPlay())
+    })
+    
   </script>
 </body>
 </html>
